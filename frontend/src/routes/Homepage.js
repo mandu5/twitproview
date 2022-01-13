@@ -1,24 +1,8 @@
-import "./App.css";
+import "../App.css";
 
-function App() {
-  var request = require("request");
-  var options = {
-    method: "GET",
-    url: "https://api.twitter.com/2/users/2244994945/tweets?max_results=5&tweet.fields=created_at,public_metrics",
-    headers: {
-      Authorization:
-        "Bearer AAAAAAAAAAAAAAAAAAAAAM%2FBXwEAAAAAUjvhf4YRhgTCVJ7q%2BwQDPueQufE%3DtTgvzLO5HTxlyFV7O3spJ5uhSPlf8LTqrEhkiNDwgPR8VZS2kh",
-      Cookie:
-        'guest_id=v1%3A164179624887409961; guest_id_ads=v1%3A164179624887409961; guest_id_marketing=v1%3A164179624887409961; personalization_id="v1_xACUax4tEk/YTGF18NEjyQ=="',
-    },
-  };
-  request(options, function (error: string | undefined, response: { body: any; }) {
-    if (error) throw new Error(error);
-    console.log(response.body);
-  });
+export function Homepage() {
   return (
-    <body>
-      <meta charSet="UTF-8"></meta>
+    <>
       <div id="app-root">
         <div></div>
         <header id="top" className="PublishHeader is-shrinkDisabled">
@@ -69,19 +53,9 @@ function App() {
       </div>
       <div className="section full-height over-hide">
         <div className="title">
-          {/* <a className="twitter-timeline" href="https://twitter.com/LaplusDarknesss?ref_src=twsrc%5Etfw"
-                data-chrome="nofooter" data-aria-polite="assertive">Tweets by
-                LaplusDarknesss</a> */}
+          <h1>d</h1>
         </div>
       </div>
-      {/* <script
-        async
-        src="https://platform.twitter.com/widgets.js"
-        charSet="utf-8"
-      ></script> */}
-      {}
-    </body>
+    </>
   );
 }
-
-export default App;
