@@ -1,15 +1,19 @@
+import { useState, useEffect } from "react";
 import logo from "./twitter.svg";
 import "./App.css";
 import { FaCrosshairs } from "react-icons/fa";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { Homepage } from "./routes/Homepage";
+import { useRecoilValue } from "recoil";
+import { searchTypedAtom } from "../src/atom";
 
 function App() {
   const [trends, setTrends] = useState([]);
+  const [timeline, setTimeline] = useState([]);
   const [woeid, setWoeid] = useState("1");
+  const id = useRecoilValue(searchTypedAtom);
 
-  useEffect(() => getTrends(), [woeid]);
+  useEffect(() => {getTimeline(); getTrends()}, [woeid, id]);
 
   function getTrends() {
     axios
@@ -19,8 +23,20 @@ function App() {
         },
       })
       .then((response) => {
-        // console.log(response.data)
         setTrends(response.data[0].trends);
+      })
+      .catch((error) => console.log(error.message));
+  }
+
+  function getTimeline() {
+    axios
+      .get("/api/timeline", {
+        params: {
+          id,
+        },
+      })
+      .then((response) => {
+        setTimeline(response.data);
       })
       .catch((error) => console.log(error.message));
   }
@@ -37,7 +53,6 @@ function App() {
               },
             })
             .then((response) => {
-              console.log(response.data[0].woeid);
               setWoeid(response.data[0].woeid);
             })
             .catch((error) => console.log(error.message));
@@ -67,6 +82,22 @@ function App() {
       </ul>
     );
   }
+  function listTimeline() {
+    return (
+      <ul>
+        {timeline.map((timeline, index) => {
+          return (
+            <li key={index}>
+              <div>{timeline.text}</div>
+              <div>{timeline.retweet_count}</div>
+              <div>{timeline.favorite_count}</div>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -79,11 +110,13 @@ function App() {
           onChange={(e) => setWoeid(e.target.value)}
         >
           <option value="1">Worldwide</option>
-          <option value="23424848">India</option>
+          <option value="23424868">South Korea, KR</option>
+          <option value="23424856">Japan, JP</option>
           <option value="2459115">New York,US</option>
-          <option value="2442047">Los Angeles,US</option>
-          <option value="2295411">Mumbai</option>
-          <option value="1105779">Sydney,AU</option>
+          <option value="44418">London, UK</option>
+          <option value="638242">Berlin, DE</option>
+          <option value="615702">Paris, FR</option>
+          <option value="1105779">Sydney, AU</option>
         </select>
         <div className="location" onClick={handleLocation}>
           <FaCrosshairs />
@@ -91,6 +124,7 @@ function App() {
       </div>
       <div className="content">{listTrends()}</div>
       <Homepage />
+      <div className="content">{listTimeline()}</div>
     </div>
   );
 }

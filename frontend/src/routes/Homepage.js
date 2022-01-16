@@ -1,10 +1,12 @@
+import { useSetRecoilState } from "recoil";
+import { searchTypedAtom } from "../atom";
 import "../App.css";
 
 export function Homepage() {
+  const setId = useSetRecoilState(searchTypedAtom);
   return (
     <>
       <div id="app-root">
-        <div></div>
         <header id="top" className="PublishHeader is-shrinkDisabled">
           <div className="PublishHeader-content">
             <div className="u-cf">
@@ -31,7 +33,7 @@ export function Homepage() {
                 </a>
               </p>
             </div>
-            <form className="PublishHeader-query">
+            <div className="PublishHeader-query">
               <h1 className="WidgetQuery-prompt">Twitter Profile Viewer</h1>
               <section className="WidgetQuery-main">
                 <label className="u-hiddenVisually">Enter a Twitter URL</label>
@@ -39,6 +41,8 @@ export function Homepage() {
                   id="configuration-query"
                   className="WidgetQuery-input"
                   placeholder="Enter a Twitter URL"
+        
+                  onKeyDown={(e) => setId(e.target.value)}
                 />
                 <button
                   type="button"
@@ -47,15 +51,11 @@ export function Homepage() {
                   <span className="u-hiddenVisually">Show Suggestions</span>
                 </button>
               </section>
-            </form>
+            </div>
           </div>
         </header>
       </div>
-      <div className="section full-height over-hide">
-        <div className="title">
-          <h1>d</h1>
-        </div>
-      </div>
+      <div className="section full-height over-hide"></div>
     </>
   );
 }
