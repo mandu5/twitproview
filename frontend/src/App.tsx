@@ -5,7 +5,7 @@ import { FaCrosshairs } from "react-icons/fa";
 import axios from "axios";
 import { Homepage } from "./routes/Homepage";
 import { useRecoilValue } from "recoil";
-import { searchTypedAtom } from "../src/atom";
+import { searchTypedAtom } from "./atom";
 
 function App() {
   const [trends, setTrends] = useState([]);
@@ -70,7 +70,7 @@ function App() {
   function listTrends() {
     return (
       <ul>
-        {trends.map((trend, index) => {
+        {trends.map((trend:any, index) => {
           return (
             <li key={index}>
               <a href={trend.url}>{trend.name}</a>
@@ -86,7 +86,7 @@ function App() {
   function listTimeline() {
     return (
       <ul>
-        {timeline.map((timeline, index) => {
+        {timeline.map((timeline:any, index) => {
           return (
             <li key={index}>
               <div>{timeline.text}</div>
