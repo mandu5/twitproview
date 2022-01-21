@@ -13,7 +13,7 @@ app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
 
-app.use("/api", require("./routes/api.route"));
+app.use("/api", require("./routes/api.route.tsx"));
 
 app.use((req, res, next) => {
   next(createError.NotFound());
