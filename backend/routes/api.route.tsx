@@ -1,5 +1,5 @@
 const router = require("express").Router();
-var Twitter = require("twitter");
+const Twitter = require("twitter");
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_API_KEY,

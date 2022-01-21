@@ -1,6 +1,6 @@
-var express = require("express");
-var createError = require("http-errors");
-var morgan = require("morgan");
+const express = require("express");
+const createError = require("http-errors");
+const morgan = require("morgan");
 require("dotenv").config();
 
 const app = express();
@@ -13,7 +13,7 @@ app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
 
-app.use("/api", require("./routes/api.route"));
+app.use("/api", require("./routes/api.route.tsx"));
 
 app.use((req, res, next) => {
   next(createError.NotFound());
