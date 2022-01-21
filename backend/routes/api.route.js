@@ -11,7 +11,7 @@ const client = new Twitter({
 // 타임라인
 router.get("/timeline", async (req, res, next) => {
   try {
-    const id = req.query.id;
+    const id = req.query.sreen_name;
     const timeline = await client.get("statuses/user_timeline.json", {
       id,
       exclude_replies: true,

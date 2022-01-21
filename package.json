@@ -4,20 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "heroku-prebuild": "cd frontend && npm ci && npm run build && mv build ../backend",
+    "start": "cd backend && npm ci && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently 'cd frontend && npm start' 'cd backend && npm run dev' "
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mandu0505/twitter-viewer.git"
+    "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mandu0505/twitter-viewer/issues"
-  },
-  "homepage": "https://github.com/mandu0505/twitter-viewer#readme",
+  "bugs": {},
   "dependencies": {
     "concurrently": "^7.0.0"
   }

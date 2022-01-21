@@ -11,9 +11,10 @@ function App() {
   const [trends, setTrends] = useState([]);
   const [timeline, setTimeline] = useState([]);
   const [woeid, setWoeid] = useState("1");
-  const id = useRecoilValue(searchTypedAtom);
+  const sreen_name = useRecoilValue(searchTypedAtom);
 
-  useEffect(() => {getTimeline(); getTrends()}, [woeid, id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {getTimeline(); getTrends()}, [woeid, sreen_name]);
 
   function getTrends() {
     axios
@@ -32,7 +33,7 @@ function App() {
     axios
       .get("/api/timeline", {
         params: {
-          id,
+          sreen_name,
         },
       })
       .then((response) => {
