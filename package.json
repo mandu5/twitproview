@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "heroku-prebuild": "cd frontend && npm ci && npm run build && mv build ../backend",
-    "start": "cd backend && npm ci && node app.js",
+    "start": "cd backend && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
   },
@@ -20,6 +20,7 @@
     "node": "16.13.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.38"
+    "@types/react": "^17.0.38",
+    "gh-pages": "^3.2.3"
   }
 }

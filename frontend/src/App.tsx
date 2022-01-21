@@ -13,7 +13,6 @@ function App() {
   const [woeid, setWoeid] = useState("1");
   const sreen_name = useRecoilValue(searchTypedAtom);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {getTimeline(); getTrends()}, [woeid, sreen_name]);
 
   function getTrends() {
