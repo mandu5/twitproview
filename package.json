@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "heroku-prebuild": "cd frontend && npm ci && npm run build && mv build ../backend",
     "start": "cd backend && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"cd frontend && npm start\" \"cd backend && npm run dev\""
