@@ -12,7 +12,7 @@ router.get("/timeline", async (req, res, next) => {
   try {
     const id = req.query.sreen_name;
     const timeline = await client.get("statuses/user_timeline.json", {
-      id:"laplusdarknesss",
+      id,
       exclude_replies: true,
       include_rts: false,
       count: 200,

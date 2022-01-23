@@ -4,7 +4,7 @@ import Trends from "./routes/Trends";
 
 function Routers() {
     return (
-      <Router >
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/" element={<Timeline />} />
           <Route path="/trends" element={<Trends />} />

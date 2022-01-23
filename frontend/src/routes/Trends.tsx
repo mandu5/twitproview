@@ -4,21 +4,6 @@ import { FaCrosshairs } from "react-icons/fa";
 import axios from "axios";
 import styled from "styled-components";
 
-const Publish = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(135deg, #dcc3fc, #9ac5fc);
-  color: #ffffff;
-  height: 87vh;
-  min-height: 50px;
-  z-index: 1;
-  font-weight: 300;
-  letter-spacing: 0.0357em;
-  @media (max-width: 420px) {
-    height: 77vh;
-  }
-`;
 const Location = styled.div`
   background-color: #f5f8fa;
   color: #000;
@@ -39,6 +24,14 @@ const Menu = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Select = styled.select`
+  margin: 16px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 999px;
+  border-color: #aab8c2;
+  border-width: 2px;
+`;
 const TweetVolume = styled.span`
   font-size: 12px;
   background-color: var(--primary-color);
@@ -47,6 +40,39 @@ const TweetVolume = styled.span`
   padding: 2px 4px;
   margin-left: 4px;
   font-weight: bold;
+`;
+const Content = styled.div`
+  height: 100%;
+  padding: 0 15px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+`;
+const Brand = styled.h1`
+  position: relative;
+  float: left;
+  font-size: inherit;
+  line-height: 50px;
+  z-index: 2;
+  margin-left: 140px;
+  @media (max-width: 1189px) {
+    margin-left: 0;
+  }
+`;
+const A = styled.p`
+  position: relative;
+  float: right;
+  line-height: 50px;
+  z-index: 2;
+  margin-right: 140px;
+  @media (max-width: 1189px) {
+    margin-right: 0;
+  }
+`;
+const List = styled.div`
+  width: 90%;
+  margin: auto;
 `;
 
 function Trends() {
@@ -93,7 +119,7 @@ function Trends() {
   }
   function listTrends() {
     return (
-      <ul className="content">
+      <ul>
         {trends.map((trend: any, index) => {
           return (
             <li key={index}>
@@ -110,25 +136,23 @@ function Trends() {
 
   return (
     <>
-      <Publish className="is-shrinkDisabled">
-        <div className="content">
-          <div className="u-cf">
-            <h1 className="brand">
-              <div className="u-textInheritColor">
-                <span className="logo Icon Icon--twitter"></span>
-              </div>
-            </h1>
-            <p className="Link">
+      <header className="headers shrinkDisabled">
+        <Content>
+          <div className="navbar">
+            <Brand>
+              <a href="https://twitter.com">
+                <span className="Icon"></span>
+              </a>
+            </Brand>
+            <A>
               <Link to="/">
-                <span className="LinkLongCopy">
-                  Twitter Profile
-                </span>
+                <span className="LinkLongCopy">Twitter Profile</span>
               </Link>
-            </p>
+            </A>
           </div>
-          <h1 className="WidgetQuery-prompt">Twitter Trends</h1>
+          <h1 className="title">Twitter Trends</h1>
           <Menu>
-            <select
+            <Select
               name="trending-place"
               onChange={(e) => setWoeid(e.target.value)}
             >
@@ -140,14 +164,14 @@ function Trends() {
               <option value="638242">Berlin, DE</option>
               <option value="615702">Paris, FR</option>
               <option value="1105779">Sydney, AU</option>
-            </select>
+            </Select>
             <Location onClick={handleLocation}>
               <FaCrosshairs />
             </Location>
           </Menu>
-          <div className="content">{listTrends()}</div>
-        </div>
-      </Publish>
+          <List>{listTrends()}</List>
+        </Content>
+      </header>
     </>
   );
 }

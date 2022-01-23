@@ -6,28 +6,29 @@ import { searchTypedAtom } from "../atom";
 import axios from "axios";
 import styled from "styled-components";
 
-const Publish = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: linear-gradient(135deg, #dcc3fc, #9ac5fc);
-  color: #ffffff;
-  height: 87vh;
-  min-height: 50px;
-  z-index: 1;
-  font-weight: 300;
-  letter-spacing: 0.0357em;
-  @media (max-width: 420px) {
-    height: 77vh;
+const Header = styled.div`
+  .profile {
+    float: left;
   }
 `;
-const Header = styled.div`
+const Name = styled.div`
   float: left;
 `;
+const Id = styled.div``;
+
 const Body = styled.div``;
+const Text = styled.div``;
+const Hash = styled.div``;
+const Photo = styled.div``;
+
 const Date = styled.div``;
-const Like = styled.div``;
-const Retweet = styled.div``;
+const Like = styled.div`
+  float: left;
+`;
+const Retweet = styled.div`
+  float: left;
+  margin-left: 10px;
+`;
 
 const MainInput = styled.div`
   position: relative;
@@ -56,6 +57,31 @@ const Input = styled.input`
     letter-spacing: 0.0357em;
     text-overflow: ellipsis !important;
   }
+`;
+const Content = styled.div`
+  height: 100%;
+  padding: 0 15px;
+  max-width: 1160px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  text-align: center;
+`;
+const Brand = styled.h1`
+  position: relative;
+  float: left;
+  font-size: inherit;
+  line-height: 50px;
+  z-index: 2;
+`;
+const List = styled.div`
+  max-width: 1160px;
+  margin: auto;
+`;
+const A = styled.p`
+  position: relative;
+  float: right;
+  line-height: 50px;
+  z-index: 2;
 `;
 
 function Timeline() {
@@ -95,89 +121,83 @@ function Timeline() {
   //   return img;
   // }; //undefined 해결법 공부  (리엑트 undefined)
   function listTimeline() {
-    // map sort구현(리엑트 map sort)
+
+    // // 최신순
+    // timeline.sort();
+    // // 좋아요순
+    // timeline.sort((a: { favorite_count: number; },b: { favorite_count: number; })=>a.favorite_count-b.favorite_count);
+    // // 리트윗순
+    // timeline.sort((a: { retweet_count: number; },b: { retweet_count: number; })=>a.retweet_count-b.retweet_count);
+
     return (
-      <ul>
-        {timeline.map((timeline: any) => {
-          return (
-            <>
-              {/* <a href={timeline.urls.url}> */}
-              <li>
-                <img
-                  className="profile"
-                  src={`${timeline.user.profile_image_url}`}
-                  alt="profile"
-                />
-                <div>{timeline.user.name}</div>
-                <div>@{timeline.user.screen_name}</div>
-                <div>{timeline.text}</div>
-                {/* <div>{hashtag()}</div> */}
-                {/* <img className="thumbnail" src={img()} alt="thumbnail" /> */}
-                <div>{timeline.created_at}</div>
-                <div>🤍{timeline.favorite_count}</div>
-                <div>
-                  <FaRetweet />
-                  {timeline.retweet_count}
-                </div>
-              </li>
-              {/* </a> */}
-            </>
-          );
-        })}
-      </ul>
+      <List>
+        <ul>
+          {timeline.map((timeline: any) => {
+            return (
+              <>
+                {/* <a href={timeline.urls.url}> */}
+                <li>
+                  <Header>
+                    <img
+                      className="profile"
+                      src={`${timeline.user.profile_image_url}`}
+                      alt="profile"
+                    />
+                    <Name>{timeline.user.name}</Name>
+                    <br />
+                    <Id>@{timeline.user.screen_name}</Id>
+                  </Header>
+                  <br />
+                  <Body>
+                    <Text>{timeline.text}</Text>
+                    <Hash>해쉬테그(optional)</Hash>
+                    <Photo>사진(optional)</Photo>
+                  </Body>
+                  <Date>{timeline.created_at}</Date>
+                  <Like>🤍{timeline.favorite_count}</Like>
+                  <Retweet>
+                    <FaRetweet />
+                    {timeline.retweet_count}
+                  </Retweet>
+                </li>
+                {/* </a> */}
+              </>
+            );
+          })}
+        </ul>
+      </List>
     );
   }
-
+console.log(timeline)
   return (
     <>
-      <div>
-        <Publish className="is-shrinkDisabled">
-          <div className="content">
-            <div className="u-cf">
-              <h1 className="brand">
-                <div className="u-textInheritColor">
-                  <span className="logo Icon Icon--twitter"></span>
-                </div>
-              </h1>
-              <p className="Link">
-                <Link to="/trends">
-                  <span className="LinkLongCopy">Twitter Trends</span>
-                </Link>
-              </p>
-            </div>
-            <MainInput>
-              <h1 className="WidgetQuery-prompt">Twitter Profile Viewer</h1>
-              <Main>
-                <Input
-                  type="text"
-                  id="configuration-query"
-                  placeholder="Enter a Twitter UserId"
-                  onKeyPress={onEnter}
-                />
-              </Main>
-            </MainInput>
+      <header className="header shrinkDisabled">
+        <Content>
+          <div className="navbar">
+            <Brand>
+              <a href="https://twitter.com">
+                <span className="Icon"></span>
+              </a>
+            </Brand>
+            <A>
+              <Link to="/trends">
+                <span className="LinkLongCopy">Twitter Trends</span>
+              </Link>
+            </A>
           </div>
-        </Publish>
-      </div>
-      <div className="section full-height over-hide"></div>
-      <div className="content">{listTimeline()}</div>
-      <ul className="content">
-        <li>
-          <Header>
-            <div>프사</div>
-            <div>이름</div>
-            <div>아이디</div>
-          </Header>
-          <Body>
-            <div>텍스트</div>
-            <div>해쉬테그(optional)</div>
-            <div>사진(optional)</div>
-          </Body>
-          <Date>날짜</Date>
-          <Like>좋아요</Like>
-          <Retweet>리트윗</Retweet>
-        </li>
-      </ul>
+          <MainInput>
+            <h1 className="title">Twitter Profile Viewer</h1>
+            <Main>
+              <Input
+                type="text"
+                placeholder="Enter a Twitter UserId"
+                onKeyPress={onEnter}
+              />
+            </Main>
+          </MainInput>
+        </Content>
+      </header>
+      <List>{listTimeline()}</List>
     </>
   );
 }
