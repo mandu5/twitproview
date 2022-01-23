@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "../backend/aaa.js"  ]
 }

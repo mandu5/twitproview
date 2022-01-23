@@ -8,14 +8,14 @@ const client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_SECRET,
 });
 
-// 타임라인
 router.get("/timeline", async (req, res, next) => {
   try {
     const id = req.query.sreen_name;
     const timeline = await client.get("statuses/user_timeline.json", {
-      id,
+      id:"laplusdarknesss",
       exclude_replies: true,
-      exclude_retweets: true,
+      include_rts: false,
+      count: 200,
     });
     res.send(timeline);
   } catch (error) {
@@ -24,7 +24,7 @@ router.get("/timeline", async (req, res, next) => {
   }
 });
 
-// 트렌드
+
 router.get("/trends", async (req, res, next) => {
   try {
     const id = req.query.woeid;
@@ -38,7 +38,7 @@ router.get("/trends", async (req, res, next) => {
   }
 });
 
-// 내 위치
+
 router.get("/near-me", async (req, res, next) => {
   try {
     const { lat, long } = req.query;
