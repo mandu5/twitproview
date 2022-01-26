@@ -2,61 +2,75 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { FaRetweet } from "react-icons/fa";
-import { searchTypedAtom } from "../atom";
+import { errorAtom, hiddenAtom, searchTypedAtom } from "../atom";
 import axios from "axios";
+import moment from "moment";
 import styled from "styled-components";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import InputBox from "../components/InputBox";
 
-const Header = styled.div`
+const List = styled.div`
+  max-width: 1160px;
+  margin: 0 auto;
+  li {
+    position: relative;
+    width: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    box-sizing: border-box;
+  }
+  .hidden {
+    visibility: hidden;
+    &.active {
+      visibility: visible;
+    }
+  }
   .profile {
     float: left;
+    margin-right: 10px;
+  }
+  .select {
+    margin: 16px;
+    font-size: 16px;
+    border-radius: 999px;
+    border-color: #aab8c2;
+    border-width: 2px;
   }
 `;
 const Name = styled.div`
   float: left;
 `;
-const Id = styled.div``;
-
-const Body = styled.div``;
-const Text = styled.div``;
-const Hash = styled.div``;
-const Photo = styled.div``;
-
-const Date = styled.div``;
+const Text = styled.div`
+  margin: 10px;
+  font-weight: 200;
+  font-size: 16px;
+`;
+const Hash = styled.div`
+  margin-left: 10px;
+`;
+const Photo = styled.img`
+  position: relative;
+  width: 90%;
+  max-height: 450px;
+  top: 50%;
+  left: 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transform: translate(-50%, 0%);
+  box-sizing: border-box;
+`;
+const Date = styled.div`
+  margin-left: 10px;
+`;
 const Like = styled.div`
   float: left;
+  margin-left: 10px;
 `;
 const Retweet = styled.div`
   float: left;
   margin-left: 10px;
-`;
-
-const MainInput = styled.div`
-  position: relative;
-  top: calc(50% - 50px);
-  transform: translateY(-50%);
-  opacity: 1;
-  transition: opacity 0.6s;
-`;
-const Main = styled.section`
-  position: relative;
-  width: 580px;
-  max-width: 90%;
-  margin: 15px auto 5px;
-`;
-const Input = styled.input`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 15px 36px 15px 20px;
-  border: 0;
-  border-radius: 4px;
-  background: #fff;
-  color: #292f33;
-  &::placeholder {
-    color: #8899a6;
-    font-weight: 300;
-    letter-spacing: 0.0357em;
-    text-overflow: ellipsis !important;
-  }
 `;
 const Content = styled.div`
   height: 100%;
@@ -66,39 +80,20 @@ const Content = styled.div`
   margin: 0 auto;
   text-align: center;
 `;
-const Brand = styled.h1`
-  position: relative;
-  float: left;
-  font-size: inherit;
-  line-height: 50px;
-  z-index: 2;
-`;
-const List = styled.div`
-  max-width: 1160px;
-  margin: auto;
-`;
-const A = styled.p`
-  position: relative;
-  float: right;
-  line-height: 50px;
-  z-index: 2;
-`;
 
-function Timeline() {
-  const setId = useSetRecoilState(searchTypedAtom);
-  const onEnter = (event: any) => {
-    if (event.key === "Enter") {
-      setId(event.currentTarget.value);
-    }
-  };
+const Timeline = () => {
   const [timeline, setTimeline] = useState<any>([]);
+  const [sort, setSort] = useState("date");
   const sreen_name = useRecoilValue(searchTypedAtom);
+  const hidden = useRecoilValue(hiddenAtom);
+  const setError = useSetRecoilState(errorAtom);
 
   useEffect(() => {
     getTimeline();
-  }, [sreen_name]);
+    listTimeline();
+  }, [sreen_name, setSort]);
 
-  function getTimeline() {
+  const getTimeline = () => {
     axios
       .get("/api/timeline", {
         params: {
@@ -107,37 +102,40 @@ function Timeline() {
       })
       .then((response) => {
         setTimeline(response.data);
+        setError("");
       })
-      .catch((error) => console.log(error.message));
-  }
-  // const hashtag = () => {
-  //   if (typeof timeline[1].entities.hashtags[0].text === undefined) {
-  //     return "no";
-  //   }
-  //   return "yes";
-  // };
-  // const img = () => {
-  //   let img = timeline[10].entities.media[0].media_url;
-  //   return img;
-  // }; //undefined 해결법 공부  (리엑트 undefined)
-  function listTimeline() {
-
-    // // 최신순
-    // timeline.sort();
-    // // 좋아요순
-    // timeline.sort((a: { favorite_count: number; },b: { favorite_count: number; })=>a.favorite_count-b.favorite_count);
-    // // 리트윗순
-    // timeline.sort((a: { retweet_count: number; },b: { retweet_count: number; })=>a.retweet_count-b.retweet_count);
-
+      .catch(() => setError("Invalid UserId"));
+  };
+  const listTimeline = () => {
+    if (sort === "date") {
+      timeline.sort((a: { id: number }, b: { id: number }) => b.id - a.id);
+    } else if (sort === "like") {
+      timeline.sort(
+        (a: { favorite_count: number }, b: { favorite_count: number }) =>
+          b.favorite_count - a.favorite_count
+      );
+    } else {
+      timeline.sort(
+        (a: { retweet_count: number }, b: { retweet_count: number }) =>
+          b.retweet_count - a.retweet_count
+      );
+    }
     return (
       <List>
+        <div className={hidden}>
+          <span>Sort by:</span>
+          <select className="select" onChange={(e) => setSort(e.target.value)}>
+            <option value="date">Date</option>
+            <option value="like">Likes</option>
+            <option value="retweet">Retweets</option>
+          </select>
+        </div>
         <ul>
           {timeline.map((timeline: any) => {
             return (
               <>
-                {/* <a href={timeline.urls.url}> */}
                 <li>
-                  <Header>
+                  <a href={`https://twitter.com/${timeline.user.screen_name}`}>
                     <img
                       className="profile"
                       src={`${timeline.user.profile_image_url}`}
@@ -145,61 +143,61 @@ function Timeline() {
                     />
                     <Name>{timeline.user.name}</Name>
                     <br />
-                    <Id>@{timeline.user.screen_name}</Id>
-                  </Header>
+                    <div>@{timeline.user.screen_name}</div>
+                  </a>
                   <br />
-                  <Body>
+                  <div>
                     <Text>{timeline.text}</Text>
-                    <Hash>해쉬테그(optional)</Hash>
-                    <Photo>사진(optional)</Photo>
-                  </Body>
-                  <Date>{timeline.created_at}</Date>
-                  <Like>🤍{timeline.favorite_count}</Like>
+                    {typeof timeline.entities.hashtags[0] === "undefined" ? (
+                      <></>
+                    ) : (
+                      <a
+                        href={`https://twitter.com/hashtag/${timeline.entities.hashtags[0].text}?src=hashtag_click`}
+                      >
+                        <Hash>#{timeline.entities.hashtags[0].text}</Hash>
+                      </a>
+                    )}
+                    {typeof timeline.entities.media === "undefined" ? (
+                      <></>
+                    ) : (
+                      <Photo
+                        className="pic"
+                        src={`${timeline.entities.media[0].media_url}`}
+                        alt="pic"
+                      />
+                    )}
+                  </div>
+                  <Date>
+                    {moment(timeline.created_at).format(
+                      "MMMM Do YYYY, h:mm:ss a"
+                    )}
+                  </Date>
+                  <Like>❤️{timeline.favorite_count}</Like>
                   <Retweet>
                     <FaRetweet />
                     {timeline.retweet_count}
                   </Retweet>
                 </li>
-                {/* </a> */}
               </>
             );
           })}
         </ul>
       </List>
     );
-  }
-console.log(timeline)
+  };
+
   return (
     <>
       <header className="header shrinkDisabled">
         <Content>
-          <div className="navbar">
-            <Brand>
-              <a href="https://twitter.com">
-                <span className="Icon"></span>
-              </a>
-            </Brand>
-            <A>
-              <Link to="/trends">
-                <span className="LinkLongCopy">Twitter Trends</span>
-              </Link>
-            </A>
-          </div>
-          <MainInput>
-            <h1 className="title">Twitter Profile Viewer</h1>
-            <Main>
-              <Input
-                type="text"
-                placeholder="Enter a Twitter UserId"
-                onKeyPress={onEnter}
-              />
-            </Main>
-          </MainInput>
+          <Navbar />
+          <InputBox />
         </Content>
       </header>
-      <List>{listTimeline()}</List>
+      {listTimeline()}
+      <Footer />
     </>
   );
-}
+};
 
 export default Timeline;

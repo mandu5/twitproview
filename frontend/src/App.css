@@ -1,7 +1,7 @@
 html {
   font: normal normal normal 14px/1.3 Helvetica Neue, sans-serif;
   color: #292f33;
-  background: #fff;
+  background: #F1EFE9;
 }
 
 :root {
@@ -13,7 +13,7 @@ li {
   list-style-type: none;
   background-color: #f5f8fa;
   padding: 8px 16px;
-  margin: 8px;
+  margin-bottom: 8px;
   border-radius: 10px;
 }
 
@@ -59,7 +59,7 @@ a:hover {
   vertical-align: text-bottom;
   background-repeat: no-repeat;
   width: 1.25em;
-  background-image: url("../../frontend/src/routes/twitter.svg");
+  background-image: url("../../frontend/src/twitter.svg");
 }
 
 .header, .headers {
@@ -74,7 +74,7 @@ a:hover {
   letter-spacing: 0.0357em;
 }
 .headers {
-  height: 100vh;
+  height: 100%;
 }
 
 .header.shrinkDisabled,

@@ -60,7 +60,7 @@ const Brand = styled.h1`
     margin-left: 0;
   }
 `;
-const A = styled.p`
+const Switch = styled.p`
   position: relative;
   float: right;
   line-height: 50px;
@@ -71,8 +71,10 @@ const A = styled.p`
   }
 `;
 const List = styled.div`
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  li {
+    margin: 10px;
+  }
 `;
 
 function Trends() {
@@ -140,15 +142,15 @@ function Trends() {
         <Content>
           <div className="navbar">
             <Brand>
-              <a href="https://twitter.com">
+              <Link to="/">
                 <span className="Icon"></span>
-              </a>
+              </Link>
             </Brand>
-            <A>
+            <Switch>
               <Link to="/">
                 <span className="LinkLongCopy">Twitter Profile</span>
               </Link>
-            </A>
+            </Switch>
           </div>
           <h1 className="title">Twitter Trends</h1>
           <Menu>

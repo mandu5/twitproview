@@ -1,7 +1,7 @@
 import "./App.css";
 import Routers from "./Router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import favicon from "./routes/twitter.svg";
+import favicon from "./twitter.svg";
 
 function App() {
   return (
