@@ -12,6 +12,7 @@ import InputBox from "../components/InputBox";
 const List = styled.div`
   max-width: 1160px;
   margin: 0 auto;
+  color: #fff;
   li {
     position: relative;
     width: 70%;
@@ -62,6 +63,9 @@ const Photo = styled.img`
 `;
 const Date = styled.div`
   margin-left: 10px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #C4CFD6;
+  text-decoration: none;
 `;
 const Like = styled.div`
   float: left;

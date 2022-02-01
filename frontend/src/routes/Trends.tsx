@@ -79,6 +79,7 @@ const Switch = styled.p`
 `;
 const List = styled.div`
   width: 100%;
+  height: 100%;
   li {
     margin: 10px;
   }
