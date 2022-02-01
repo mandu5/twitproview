@@ -48,18 +48,18 @@ a:active,
 a:focus,
 a:hover {
   text-decoration: underline;
+  color: #A665B7;
 }
 
-.Icon {
+.icon {
   font-size: 21px;
   vertical-align: middle;
-  margin-top: -4px;
+  margin-top: 15px;
   display: inline-block;
   height: 1.25em;
   vertical-align: text-bottom;
   background-repeat: no-repeat;
   width: 1.25em;
-  background-image: url("../../frontend/src/twitter.svg");
 }
 
 .header, .headers {
@@ -90,15 +90,4 @@ a:hover {
   overflow: hidden;
   transition: opacity 0.5s ease-out 1s;
   letter-spacing: 0.02em;
-}
-
-@media (max-width: 420px) {
-  .header {
-    height: 77vh;
-  }
-}
-@media (max-width: 350px) {
-  .LinkLongCopy {
-    display: none;
-  }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCrosshairs } from "react-icons/fa";
+import { GiBirdTwitter } from "react-icons/gi";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -56,6 +57,9 @@ const Brand = styled.h1`
   line-height: 50px;
   z-index: 2;
   margin-left: 140px;
+  .link {
+    color: #f1efe9;
+  }
   @media (max-width: 1189px) {
     margin-left: 0;
   }
@@ -65,7 +69,10 @@ const Switch = styled.p`
   float: right;
   line-height: 50px;
   z-index: 2;
-  margin-right: 140px;
+  margin-right: 140px;  
+  .link {
+    color: #f1efe9;
+  }
   @media (max-width: 1189px) {
     margin-right: 0;
   }
@@ -83,6 +90,7 @@ function Trends() {
   useEffect(() => {
     getTrends();
   }, [woeid]);
+
   function getTrends() {
     axios
       .get("/api/trends", {
@@ -142,13 +150,13 @@ function Trends() {
         <Content>
           <div className="navbar">
             <Brand>
-              <Link to="/">
-                <span className="Icon"></span>
+              <Link to="/" className="link">
+                <GiBirdTwitter className="icon" />/ Twitproview
               </Link>
             </Brand>
             <Switch>
-              <Link to="/">
-                <span className="LinkLongCopy">Twitter Profile</span>
+              <Link to="/" className="link">
+                <span>Twitter Profile</span>
               </Link>
             </Switch>
           </div>
@@ -156,7 +164,7 @@ function Trends() {
           <Menu>
             <Select
               name="trending-place"
-              onChange={(e) => setWoeid(e.target.value)}
+              onChange={(e: any) => setWoeid(e.target.value)}
             >
               <option value="1">Worldwide</option>
               <option value="23424868">South Korea, KR</option>

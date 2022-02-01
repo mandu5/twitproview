@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { GiBirdTwitter } from "react-icons/gi";
 
 const Brand = styled.h1`
   position: relative;
@@ -7,12 +8,18 @@ const Brand = styled.h1`
   font-size: inherit;
   line-height: 50px;
   z-index: 2;
+  .link {
+    color: #f1efe9;
+  }
 `;
 const Switch = styled.p`
   position: relative;
   float: right;
   line-height: 50px;
   z-index: 2;
+  .link {
+    color: #f1efe9;
+  }
 `;
 
 const Navbar = () => {
@@ -20,13 +27,13 @@ const Navbar = () => {
     <>
       <div className="navbar">
         <Brand>
-          <Link to="/">
-            <span className="Icon"></span>
+          <Link to="/" className="link">
+            <GiBirdTwitter className="icon" />/ Twitproview
           </Link>
         </Brand>
         <Switch>
-          <Link to="/trends">
-            <span className="LinkLongCopy">Twitter Trends</span>
+          <Link to="/trends" className="link">
+            <span>Twitter Trends</span>
           </Link>
         </Switch>
       </div>

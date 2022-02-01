@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { FaRetweet } from "react-icons/fa";
 import { errorAtom, hiddenAtom, searchTypedAtom } from "../atom";
@@ -84,20 +83,20 @@ const Content = styled.div`
 const Timeline = () => {
   const [timeline, setTimeline] = useState<any>([]);
   const [sort, setSort] = useState("date");
-  const sreen_name = useRecoilValue(searchTypedAtom);
+  const screen_name = useRecoilValue(searchTypedAtom);
   const hidden = useRecoilValue(hiddenAtom);
   const setError = useSetRecoilState(errorAtom);
 
   useEffect(() => {
     getTimeline();
     listTimeline();
-  }, [sreen_name, setSort]);
+  }, [screen_name, setSort]);
 
   const getTimeline = () => {
     axios
       .get("/api/timeline", {
         params: {
-          sreen_name,
+          screen_name,
         },
       })
       .then((response) => {
@@ -168,9 +167,8 @@ const Timeline = () => {
                     )}
                   </div>
                   <Date>
-                    {moment(timeline.created_at).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
+                    {moment(`${timeline.created_at}`).format("llll")}
+                    {/* {timeline.created_at} */}
                   </Date>
                   <Like>❤️{timeline.favorite_count}</Like>
                   <Retweet>

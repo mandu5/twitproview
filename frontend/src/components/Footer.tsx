@@ -11,8 +11,8 @@ const Footer = () => {
   return (
     <>
       <Copyright>
-        <span>Twitproview</span>
-        <span>Copyright 2022. twitproview. All Rights Reserved.</span>
+        <span><a href="mailto: contact@twitproview.com">Twitproview</a></span>
+        <span> Copyright 2022. twitproview. All Rights Reserved.</span>
       </Copyright>
     </>
   );

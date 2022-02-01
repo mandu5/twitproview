@@ -1,7 +1,6 @@
 import "./App.css";
 import Routers from "./Router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import favicon from "./twitter.svg";
 
 function App() {
   return (
@@ -10,7 +9,6 @@ function App() {
         <Helmet>
           <meta charSet="utf-8" />
           <title>Twitproview</title>
-          <link rel="icon" type="image/png" href={favicon} sizes="16x16" />
         </Helmet>
       </HelmetProvider>
       <Routers />
