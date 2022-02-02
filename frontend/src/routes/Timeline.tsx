@@ -64,7 +64,7 @@ const Photo = styled.img`
 const Date = styled.div`
   margin-left: 10px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #C4CFD6;
+  border-bottom: 1px solid #c4cfd6;
   text-decoration: none;
 `;
 const Like = styled.div`
@@ -150,7 +150,14 @@ const Timeline = () => {
                   </a>
                   <br />
                   <div>
-                    <Text>{timeline.text}</Text>
+                    <Text>
+                      {timeline.text.includes("http")
+                        ? timeline.text.substring(
+                            0,
+                            timeline.text.indexOf("http")
+                          )
+                        : timeline.text}
+                    </Text>
                     {typeof timeline.entities.hashtags[0] === "undefined" ? (
                       <></>
                     ) : (
@@ -158,6 +165,13 @@ const Timeline = () => {
                         href={`https://twitter.com/hashtag/${timeline.entities.hashtags[0].text}?src=hashtag_click`}
                       >
                         <Hash>#{timeline.entities.hashtags[0].text}</Hash>
+                      </a>
+                    )}
+                    {typeof timeline.entities.urls[0] === "undefined" ? (
+                      <></>
+                    ) : (
+                      <a href={`${timeline.entities.urls[0].url}`}>
+                        <Hash>{timeline.entities.urls[0].display_url}</Hash>
                       </a>
                     )}
                     {typeof timeline.entities.media === "undefined" ? (
