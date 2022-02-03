@@ -24,3 +24,7 @@ Social media **Twitter**, which is popular with more than 100 million active use
 - Knowing the operating principle of **Node.js**, learned how to **Link **Node.js` + `Express`** server and **React`**.**.
 - Was able to study how to efficiently handle 'Json' data by utilizing '**Node.js**' and 'Twitter API'.
 - The project could be deployed using 'Digital Ocean'.
+
+# 📷 Screenshot
+
+<img width="1437" alt="스크린샷 2022-02-02 오전 2 37 36" src="https://user-images.githubusercontent.com/58925260/152306473-e25d036c-628c-4cda-a4b0-6f52a3c748b1.png">
