@@ -5,15 +5,15 @@
 
 # 📝 Summary
 
-Social media **Twitter**, which is popular with more than 100 million active users per day, did not have many ways to list specific users' tweets in the latest order and like order. Therefore, I made a platform to make it easy to see users' latest or popular tweets without restrictions. If you enter the Twitter user's ID, it is a service that shows the user's timeline and lists tweets in several ways.
+Social media Twitter which is popular with more than 100 million active users per day, unfortunately does not provide any robust filtering options on their platform. This platform hopes to slove this problem to make it easy to see users' latest and popular tweets without restrictions. When you enter the Twitter user's ID, it shows the user's timeline and helps you see tweets in time order, like order, and retweet order.
 
 # ⭐️ Key Function
 
-- **TwitProview (Twitter Profile Viewer)**
-- After entering the UserID, you can view the user's timeline and tweets.
-- You can search by changing the order of tweets listing through the short option on the timeline.
+- **Twitproview (Twitter Profile Viewer)**
+    - View user's timeline and tweets after entering the UserID.
+    - Twitproview allows users to filter and sort their friend's tweets. Choose any combination of the filtering options provided.
 - **Twitter Trends**
-- You can see Twitter trends in many countries around the world in real time and in your current location.
+    - Can see Twitter trends in many countries around the world in real time and in your current location.
 
 # 🛠 Tech Stack
 
@@ -21,9 +21,9 @@ Social media **Twitter**, which is popular with more than 100 million active use
 
 # 🤔 Learned
 
-- Knowing the operating principle of **Node.js**, learned how to **Link **Node.js` + `Express`** server and **React`**.**.
-- Was able to study how to efficiently handle 'Json' data by utilizing '**Node.js**' and 'Twitter API'.
-- The project could be deployed using 'Digital Ocean'.
+- Learned the operating principle of `Node.js` and how to link `Node.js` + `Express` server to `React`.
+- Was able to study how to efficiently handle `Json` data by utilizing `Node.js` and `Twitter API`.
+- The project could be deployed using `DigitalOcean`.
 
 # 📷 Screenshot
 
