@@ -39,7 +39,10 @@ const InputBox = () => {
   const setId = useSetRecoilState(searchTypedAtom);
   const setHidden = useSetRecoilState(hiddenAtom);
   const error = useRecoilValue(errorAtom);
-  const onEnter = (event: any) => {
+  const onEnter = (event: {
+    key: string;
+    currentTarget: { value: string | ((currVal: string) => string) };
+  }) => {
     if (event.key === "Enter") {
       setId(event.currentTarget.value);
       setHidden("hidden active");

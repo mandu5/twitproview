@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCrosshairs } from "react-icons/fa";
 import { GiBirdTwitter } from "react-icons/gi";
@@ -165,7 +165,7 @@ function Trends() {
           <Menu>
             <Select
               name="trending-place"
-              onChange={(e: any) => setWoeid(e.target.value)}
+              onChange={(e: { target: { value: SetStateAction<string>; }; }) => setWoeid(e.target.value)}
             >
               <option value="1">Worldwide</option>
               <option value="23424868">South Korea, KR</option>

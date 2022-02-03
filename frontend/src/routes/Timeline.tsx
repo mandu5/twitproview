@@ -83,9 +83,14 @@ const Content = styled.div`
   margin: 0 auto;
   text-align: center;
 `;
+interface ITimeline {
+  favorite_count: number;
+  id: number;
+  retweet_count: number;
+}
 
 const Timeline = () => {
-  const [timeline, setTimeline] = useState<any>([]);
+  const [timeline, setTimeline] = useState<ITimeline[]>([]);
   const [sort, setSort] = useState("date");
   const screen_name = useRecoilValue(searchTypedAtom);
   const hidden = useRecoilValue(hiddenAtom);
