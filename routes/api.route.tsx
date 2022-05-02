@@ -1,4 +1,4 @@
-const router = require("express").Router();
+export const router = require("express").Router();
 const Twitter = require("twitter");
 
 const client = new Twitter({
