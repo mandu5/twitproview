@@ -27,4 +27,6 @@ Social media Twitter which is popular with more than 100 million active users pe
 
 # 📷 Screenshot
 
-<img width="1437" alt="스크린샷 2022-02-02 오전 2 37 36" src="https://user-images.githubusercontent.com/58925260/152306473-e25d036c-628c-4cda-a4b0-6f52a3c748b1.png">
+<img width="1000" alt="스크린샷 2022-02-02 오전 2 37 36" src="https://user-images.githubusercontent.com/58925260/152306473-e25d036c-628c-4cda-a4b0-6f52a3c748b1.png">
+<img width="1000" alt="스크린샷_2022-02-02_오전_2 37 55" src="https://github.com/mandu5/twitproview/assets/58925260/9f2be9b1-af4f-420d-9145-4a2b44638b38">
+<img width="1000" alt="스크린샷_2022-02-02_오전_2 37 43" src="https://github.com/mandu5/twitproview/assets/58925260/5071f906-7e60-4035-9331-d4efe7f393bf">
