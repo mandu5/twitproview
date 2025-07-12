@@ -1,7 +1,8 @@
+require("dotenv").config();
+
 const express = require("express");
 const createError = require("http-errors");
 const morgan = require("morgan");
-require("dotenv").config();
 
 const app = express();
 app.use(express.json());
@@ -11,12 +12,12 @@ app.use(express.static("build"));
 
 app.get("/", async (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
-}); 
+});
 
-app.use("/api", require("./routes/api.route.tsx"));
+app.use("/api", require("./routes/api.route.ts"));
 
 app.use((req, res, next) => {
-  next(createError.NotFound()); 
+  next(createError.NotFound());
 });
 
 app.use((err, req, res, next) => {

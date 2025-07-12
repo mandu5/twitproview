@@ -1,16 +1,15 @@
-import "./App.css";
+import { Helmet } from "react-helmet-async";
 import Routers from "./Router";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+
+import "./App.css"; // 전역 스타일링 (기존에 있다면 그대로 사용)
 
 function App() {
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Twitproview</title>
-        </Helmet>
-      </HelmetProvider>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Twitproview</title>
+      </Helmet>
       <Routers />
     </>
   );

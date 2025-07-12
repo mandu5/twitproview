@@ -1,72 +1,89 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React from "react";
 import styled from "styled-components";
-import { errorAtom, hiddenAtom, searchTypedAtom } from "../atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { searchTypedAtom, hiddenAtom, errorAtom } from "../atom";
 
-const MainInput = styled.div`
-  position: relative;
-  top: calc(50% - 50px);
-  transform: translateY(-50%);
-  opacity: 1;
-  transition: opacity 0.6s;
-`;
-const Main = styled.section`
-  position: relative;
-  width: 580px;
-  max-width: 90%;
-  margin: 15px auto 5px;
-  .error {
-    margin-top: 10px;
-    color: red;
-  }
-`;
-const Input = styled.input`
-  box-sizing: border-box;
-  width: 100%;
-  padding: 15px 15px 15px 20px;
-  border: 0;
-  border-radius: 4px;
-  background: #fff;
-  color: #292f33;
-  &::placeholder {
-    color: #8899a6;
-    font-weight: 300;
-    letter-spacing: 0.0357em;
-    text-overflow: ellipsis !important;
-  }
-`;
+const InputContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-const InputBox = () => {
-  const setId = useSetRecoilState(searchTypedAtom);
-  const setHidden = useSetRecoilState(hiddenAtom);
-  const error = useRecoilValue(errorAtom);
-  const onEnter = (event: {
-    key: string;
-    currentTarget: { value: string | ((currVal: string) => string) };
-  }) => {
-    if (event.key === "Enter") {
-      setId(event.currentTarget.value);
-      setHidden("hidden active");
+  input {
+    padding: 10px 15px;
+    border-radius: 999px;
+    border: 2px solid #1da1f2;
+    font-size: 16px;
+    width: 300px;
+    max-width: 80%;
+    outline: none;
+    background-color: #fff;
+    color: #333;
+
+    &:focus {
+      border-color: #0d8ddb;
     }
+  }
+
+  button {
+    background-color: #1da1f2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 999px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #0d8ddb;
+    }
+  }
+
+  .error-message {
+    color: #e0245e;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+`;
+
+function InputBox() {
+  const [searchTyped, setSearchTyped] = useRecoilState(searchTypedAtom);
+  const setHidden = useSetRecoilState(hiddenAtom);
+  const errorMessage = useRecoilState(errorAtom);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTyped(e.target.value);
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setHidden("active");
+  };
+
   return (
-    <>
-      <MainInput>
-        <h1 className="title">Twitter Profile Viewer</h1>
-        <Main>
-          <Input
-            type="text"
-            placeholder="Enter your Twitter UserId"
-            onKeyPress={onEnter}
-            list="options"
-          />
-          <div className="error">{error}</div>
-          <datalist id="options">
-            <option value="@twitterdev"></option>
-            <option value="twitterdev"></option>
-          </datalist>
-        </Main>
-      </MainInput>
-    </>
+    <InputContainer>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        <input
+          type="text"
+          placeholder="Enter Twitter username (e.g., twitterdev)"
+          value={searchTyped}
+          onChange={handleChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+      {errorMessage[0] && (
+        <div className="error-message">{errorMessage[0]}</div>
+      )}
+    </InputContainer>
   );
-};
+}
+
 export default InputBox;

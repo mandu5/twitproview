@@ -1,20 +1,23 @@
+import React from "react";
 import styled from "styled-components";
 
-const Copyright = styled.p`
-  font-family: "Noto Sans KR, sans-serif";
-  margin-left: 10px;
-  color: #2C303A;
+const FooterContainer = styled.footer`
+  background-color: #1a202c;
+  color: #a0aec0;
+  padding: 20px;
   text-align: center;
+  margin-top: 50px;
+  font-size: 14px;
+  border-top: 1px solid #2d3748;
 `;
 
-const Footer = () => {
+function Footer() {
   return (
-    <>
-      <Copyright>
-        <span><a href="mailto: contact@twitproview.com">Twitproview</a></span>
-        <span> Copyright 2022. twitproview. All Rights Reserved.</span>
-      </Copyright>
-    </>
+    <FooterContainer>
+      <p>&copy; {new Date().getFullYear()} Twitproview. All Rights Reserved.</p>
+      <p>Data powered by Twitter API</p>
+    </FooterContainer>
   );
 }
+
 export default Footer;

@@ -1,9 +1,8 @@
 import { SetStateAction, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { FaCrosshairs } from "react-icons/fa";
-import { GiBirdTwitter } from "react-icons/gi";
 import axios from "axios";
 import styled from "styled-components";
+import Navbar from "../components/Navbar";
 
 const Location = styled.div`
   background-color: #f5f8fa;
@@ -24,6 +23,8 @@ const Menu = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
 `;
 const Select = styled.select`
   margin: 16px;
@@ -32,14 +33,16 @@ const Select = styled.select`
   border-radius: 999px;
   border-color: #aab8c2;
   border-width: 2px;
+  background-color: #fff;
+  color: #333;
 `;
 const TweetVolume = styled.span`
   font-size: 12px;
-  background-color: var(--primary-color);
+  background-color: #1da1f2;
   color: #f5f8fa;
   border-radius: 999px;
-  padding: 2px 4px;
-  margin-left: 4px;
+  padding: 2px 6px;
+  margin-left: 8px;
   font-weight: bold;
 `;
 const Content = styled.div`
@@ -50,139 +53,149 @@ const Content = styled.div`
   margin: 0 auto;
   text-align: center;
 `;
-const Brand = styled.h1`
-  position: relative;
-  float: left;
-  font-size: inherit;
-  line-height: 50px;
-  z-index: 2;
-  margin-left: 140px;
-  .link {
-    color: #f1efe9;
-  }
-  @media (max-width: 1189px) {
-    margin-left: 0;
-  }
-`;
-const Switch = styled.p`
-  position: relative;
-  float: right;
-  line-height: 50px;
-  z-index: 2;
-  margin-right: 140px;  
-  .link {
-    color: #f1efe9;
-  }
-  @media (max-width: 1189px) {
-    margin-right: 0;
-  }
-`;
 const List = styled.div`
-  width: 100%;
-  height: 100%;
-  li {
-    margin: 10px;
+  width: 70%;
+  margin: 0 auto;
+  color: #fff;
+  ul {
+    list-style: none;
+    padding: 0;
   }
+  li {
+    background-color: #1a202c;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  a {
+    color: #1da1f2;
+    text-decoration: none;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+const Title = styled.h1`
+  color: #fff;
+  margin-top: 30px;
+  font-size: 2.5em;
 `;
 
 function Trends() {
   const [trends, setTrends] = useState([]);
   const [woeid, setWoeid] = useState("1");
+
   useEffect(() => {
     getTrends();
   }, [woeid]);
 
-  function getTrends() {
-    axios
-      .get("/api/trends", {
+  async function getTrends() {
+    try {
+      const response = await axios.get("/api/trends", {
         params: {
           woeid,
         },
-      })
-      .then((response) => {
-        setTrends(response.data[0].trends);
-      })
-      .catch((error) => console.log(error.message));
+      });
+      setTrends(response.data[0]?.trends || []);
+    } catch (error: any) {
+      console.error(
+        "Failed to fetch trends:",
+        error.response?.data?.details || error.message
+      );
+      setTrends([]);
+    }
   }
-  function handleLocation() {
+
+  async function handleLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          axios
-            .get("/api/near-me", {
+        async (position) => {
+          try {
+            const response = await axios.get("/api/near-me", {
               params: {
                 lat: position.coords.latitude,
                 long: position.coords.longitude,
               },
-            })
-            .then((response) => {
-              setWoeid(response.data[0].woeid);
-            })
-            .catch((error) => console.log(error.message));
+            });
+            setWoeid(response.data[0]?.woeid || "1");
+          } catch (error: any) {
+            console.error(
+              "Failed to fetch nearby location:",
+              error.response?.data?.details || error.message
+            );
+            alert(
+              `Failed to get nearby trends: ${
+                error.response?.data?.details || error.message
+              }`
+            );
+          }
         },
         (error) => {
-          console.log(error.message);
+          console.error("Geolocation error:", error.message);
+          alert(`Geolocation Error: ${error.message}`);
         }
       );
     } else {
-      alert(`Geolocation not supported`);
+      alert(`Geolocation not supported by your browser`);
     }
   }
-  function listTrends() {
+
+  const listTrends = () => {
     return (
       <ul>
-        {trends.map((trend: any, index) => {
-          return (
+        {trends.length > 0 ? (
+          trends.map((trend: any, index) => (
             <li key={index}>
-              <a href={trend.url}>{trend.name}</a>
+              <a href={trend.url} target="_blank" rel="noopener noreferrer">
+                {trend.name}
+              </a>
               {trend.tweet_volume && (
-                <TweetVolume>{trend.tweet_volume}</TweetVolume>
+                <TweetVolume>{trend.tweet_volume.toLocaleString()}</TweetVolume>
               )}
             </li>
-          );
-        })}
+          ))
+        ) : (
+          <p style={{ textAlign: "center", color: "#8899a6" }}>
+            No trends found for this location.
+          </p>
+        )}
       </ul>
     );
-  }
+  };
 
   return (
     <>
-      <header className="headers shrinkDisabled">
-        <Content>
-          <div className="navbar">
-            <Brand>
-              <Link to="/" className="link">
-                <GiBirdTwitter className="icon" />/ Twitproview
-              </Link>
-            </Brand>
-            <Switch>
-              <Link to="/" className="link">
-                <span>Twitter Profile</span>
-              </Link>
-            </Switch>
-          </div>
-          <h1 className="title">Twitter Trends</h1>
-          <Menu>
-            <Select
-              name="trending-place"
-              onChange={(e: { target: { value: SetStateAction<string>; }; }) => setWoeid(e.target.value)}
-            >
-              <option value="1">Worldwide</option>
-              <option value="23424868">South Korea, KR</option>
-              <option value="23424856">Japan, JP</option>
-              <option value="2459115">New York,US</option>
-              <option value="44418">London, UK</option>
-              <option value="638242">Berlin, DE</option>
-              <option value="615702">Paris, FR</option>
-              <option value="1105779">Sydney, AU</option>
-            </Select>
-            <Location onClick={handleLocation}>
-              <FaCrosshairs />
-            </Location>
-          </Menu>
-          <List>{listTrends()}</List>
-        </Content>
-      </header>
+      <Navbar />
+      <Content>
+        <Title>Twitter Trends</Title>
+        <Menu>
+          <Select
+            name="trending-place"
+            onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              setWoeid(e.target.value)
+            }
+            value={woeid}
+          >
+            <option value="1">Worldwide</option>
+            <option value="23424868">South Korea, KR</option>
+            <option value="23424856">Japan, JP</option>
+            <option value="2459115">New York, US</option>
+            <option value="44418">London, UK</option>
+            <option value="638242">Berlin, DE</option>
+            <option value="615702">Paris, FR</option>
+            <option value="1105779">Sydney, AU</option>
+          </Select>
+          <Location onClick={handleLocation}>
+            <FaCrosshairs />
+          </Location>
+        </Menu>
+        <List>{listTrends()}</List>
+      </Content>
     </>
   );
 }
