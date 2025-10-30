@@ -14,8 +14,8 @@ const FooterContainer = styled.footer`
 function Footer() {
   return (
     <FooterContainer>
-      <p>&copy; {new Date().getFullYear()} Twitproview. All Rights Reserved.</p>
-      <p>Data powered by Twitter API</p>
+      <p>&copy; {new Date().getFullYear()} AI X Post Simulator. All Rights Reserved.</p>
+      <p>AI-Generated Content • Not Real Tweets</p>
     </FooterContainer>
   );
 }
