@@ -350,8 +350,8 @@ const Timeline = () => {
               }}
             >
               {screen_name
-                ? "No tweets found or invalid username. Please try again."
-                : "Search for a Twitter user to see their timeline."}
+                ? "Unable to generate posts. Please try a different username."
+                : "Enter any username to generate realistic X/Twitter posts with AI."}
             </p>
           )}
         </ul>

@@ -54,7 +54,7 @@ function Navbar() {
     <NavContainer>
       <Brand>
         <Link to="/" className="link">
-          <GiBirdTwitter className="icon" /> Twitproview
+          <GiBirdTwitter className="icon" /> AI X Post Simulator
         </Link>
       </Brand>
       <Switch>

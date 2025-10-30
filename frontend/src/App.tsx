@@ -8,7 +8,7 @@ function App() {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Twitproview</title>
+        <title>AI X Post Simulator - Generate Realistic Twitter/X Posts</title>
       </Helmet>
       <Routers />
     </>

@@ -73,7 +73,7 @@ function InputBox() {
       >
         <input
           type="text"
-          placeholder="Enter Twitter username (e.g., twitterdev)"
+          placeholder="Enter any username to generate posts (e.g., johndoe)"
           value={searchTyped}
           onChange={handleChange}
         />
